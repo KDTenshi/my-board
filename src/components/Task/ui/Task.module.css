@@ -1,0 +1,12 @@
+.Task {
+  background: #212529;
+  padding: 15px 25px;
+  border: 3px solid #495057;
+  border-radius: 10px;
+}
+
+.Title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #adb5bd;
+}/*# sourceMappingURL=Task.module.css.map */

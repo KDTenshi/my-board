@@ -1,0 +1,16 @@
+.Board {
+  background: #212529;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 25px;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}/*# sourceMappingURL=Board.module.css.map */
