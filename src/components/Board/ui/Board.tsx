@@ -3,17 +3,31 @@ import { useState, type FC } from "react";
 import style from "./Board.module.css";
 import { Column } from "../../Column";
 import { useAppDispatch, useAppSelector } from "../../../app/store/appStore";
-import { DndContext, DragOverlay, pointerWithin, type DragOverEvent, type DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragOverlay,
+  MouseSensor,
+  pointerWithin,
+  useSensor,
+  useSensors,
+  type DragOverEvent,
+  type DragStartEvent,
+} from "@dnd-kit/core";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { changeColumnsPosition, changeTaskColumn, changeTaskPosition } from "../../../shared/store/boardSlice";
 import type { TColumn, TTask } from "../../../shared/types/types";
 import { Task } from "../../Task";
+import { AddColumn } from "../../AddColumn";
 
 const Board: FC = () => {
   const columns = useAppSelector((state) => state.board.columns);
   const dispatch = useAppDispatch();
 
   const [selectedItem, setSelectedItem] = useState<{ item: TTask | TColumn; type: "task" | "column" } | null>(null);
+
+  const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
+
+  const sensors = useSensors(mouseSensor);
 
   const handleDragStart = (e: DragStartEvent) => {
     const { active } = e;
@@ -81,7 +95,12 @@ const Board: FC = () => {
   return (
     <div className={style.Board}>
       <div className={style.Container}>
-        <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver} collisionDetection={pointerWithin}>
+        <DndContext
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          collisionDetection={pointerWithin}
+          sensors={sensors}
+        >
           <SortableContext items={columns} strategy={horizontalListSortingStrategy}>
             {columns.map((column) => (
               <Column column={column} key={column.id} />
@@ -89,6 +108,7 @@ const Board: FC = () => {
           </SortableContext>
           <DragOverlay>{renderDragOverlay()}</DragOverlay>
         </DndContext>
+        <AddColumn />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { TColumn } from "../types/types";
+import type { TColumn, TTask } from "../types/types";
 import { arrayMove } from "@dnd-kit/sortable";
 
 type BoardState = {
@@ -18,6 +18,31 @@ export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
+    addColumn: (state, action: PayloadAction<{ title: string }>) => {
+      const { title } = action.payload;
+
+      const newColumn: TColumn = {
+        id: `${Date.now()}`,
+        title,
+        tasks: [],
+      };
+
+      state.columns.push(newColumn);
+    },
+    addTask: (state, action: PayloadAction<{ columnId: string; title: string }>) => {
+      const { columnId, title } = action.payload;
+
+      const column = state.columns.find((column) => column.id === columnId);
+
+      if (!column) return;
+
+      const newTask: TTask = {
+        id: `${Date.now()}`,
+        title,
+      };
+
+      column.tasks.push(newTask);
+    },
     changeColumnsPosition: (state, action: PayloadAction<{ activeId: string; overId: string }>) => {
       const { activeId, overId } = action.payload;
 
@@ -40,14 +65,6 @@ export const boardSlice = createSlice({
 
       activeColumn.tasks = activeColumn.tasks.filter((task) => task.id !== activeTask.id);
       overColumn.tasks.push(activeTask);
-
-      state.columns = state.columns.map((column) => {
-        if (column.id === activeColumn.id) return activeColumn;
-
-        if (column.id === overColumn.id) return overColumn;
-
-        return column;
-      });
     },
     changeTaskPosition: (state, action: PayloadAction<{ activeId: string; overId: string }>) => {
       const { activeId, overId } = action.payload;
@@ -60,14 +77,8 @@ export const boardSlice = createSlice({
       const overIndex = activeColumn.tasks.findIndex((task) => task.id === overId);
 
       activeColumn.tasks = arrayMove(activeColumn.tasks, activeIndex, overIndex);
-
-      state.columns = state.columns.map((column) => {
-        if (column.id === activeColumn.id) return activeColumn;
-
-        return column;
-      });
     },
   },
 });
 
-export const { changeColumnsPosition, changeTaskColumn, changeTaskPosition } = boardSlice.actions;
+export const { addColumn, addTask, changeColumnsPosition, changeTaskColumn, changeTaskPosition } = boardSlice.actions;

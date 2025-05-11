@@ -1,0 +1,44 @@
+.Add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Form {
+  background: #495057;
+  border-radius: 10px;
+  border: 3px solid #495057;
+  width: 100%;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Input {
+  width: 100%;
+  padding: 5px 15px;
+  font-size: 20px;
+  color: #dee2e6;
+  background: #212529;
+  border-radius: 10px;
+  font-weight: 600;
+  outline: 0;
+  border: 0;
+}
+
+.Button {
+  width: 100%;
+  background: #212529;
+  border: 3px solid #495057;
+  border-radius: 10px;
+  padding: 15px 25px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #adb5bd;
+  cursor: pointer;
+}
+.Button:hover {
+  background: #495057;
+  color: #dee2e6;
+}/*# sourceMappingURL=AddTask.module.css.map */
