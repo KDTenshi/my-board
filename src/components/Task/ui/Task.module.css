@@ -1,8 +1,10 @@
 .Task {
   background: #212529;
-  padding: 15px 25px;
+  padding: 35px 25px;
   border: 3px solid #495057;
   border-radius: 10px;
+  padding-right: 25%;
+  position: relative;
 }
 .Task:hover {
   background: #495057;
@@ -15,4 +17,30 @@
   font-size: 20px;
   font-weight: 600;
   color: #adb5bd;
+}
+
+.Controls {
+  position: absolute;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Button {
+  font-size: 20px;
+  background: #212529;
+  color: #adb5bd;
+  border: 3px solid #495057;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Button:hover {
+  background: #dee2e6;
+  color: #495057;
 }/*# sourceMappingURL=Task.module.css.map */

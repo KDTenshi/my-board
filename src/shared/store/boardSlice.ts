@@ -78,7 +78,53 @@ export const boardSlice = createSlice({
 
       activeColumn.tasks = arrayMove(activeColumn.tasks, activeIndex, overIndex);
     },
+    renameColumn: (state, action: PayloadAction<{ id: string; title: string }>) => {
+      const { id, title } = action.payload;
+
+      const column = state.columns.find((column) => column.id === id);
+
+      if (!column) return;
+
+      column.title = title;
+    },
+    deleteColumn: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+
+      state.columns = state.columns.filter((column) => column.id !== id);
+    },
+    renameTask: (state, action: PayloadAction<{ id: string; title: string }>) => {
+      const { id, title } = action.payload;
+
+      const column = state.columns.find((column) => column.tasks.some((task) => task.id === id));
+
+      if (!column) return;
+
+      const task = column.tasks.find((task) => task.id === id);
+
+      if (!task) return;
+
+      task.title = title;
+    },
+    deleteTask: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload;
+
+      const column = state.columns.find((column) => column.tasks.some((task) => task.id === id));
+
+      if (!column) return;
+
+      column.tasks = column.tasks.filter((task) => task.id !== id);
+    },
   },
 });
 
-export const { addColumn, addTask, changeColumnsPosition, changeTaskColumn, changeTaskPosition } = boardSlice.actions;
+export const {
+  addColumn,
+  addTask,
+  changeColumnsPosition,
+  changeTaskColumn,
+  changeTaskPosition,
+  renameColumn,
+  deleteColumn,
+  renameTask,
+  deleteTask,
+} = boardSlice.actions;

@@ -17,6 +17,24 @@
   color: #dee2e6;
 }
 
+.Form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 5px 15px;
+  color: #dee2e6;
+  background: #212529;
+  border: 3px solid #495057;
+  outline: 0;
+  border-radius: 10px;
+}
+
 .List {
   width: 350px;
   height: 75vh;
